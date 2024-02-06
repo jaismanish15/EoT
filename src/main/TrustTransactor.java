@@ -19,9 +19,8 @@ public class TrustTransactor {
     }
 
     private int playRound(Player player1, Player player2) {
-        if (player2 instanceof CopyCatPlayer) {
-            ((CopyCatPlayer) player2).updateOpponentMove(player1.makeMove());
-        }
+        player1.updateOpponentMove(player2.makeMove());
+        player2.updateOpponentMove(player1.makeMove());
         return trustEvaluator.play(player1, player2);
     }
 }

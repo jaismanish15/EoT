@@ -2,9 +2,7 @@ package src.test;
 
 import org.junit.jupiter.api.Test;
 import src.main.*;
-import src.main.player.CheatPlayer;
-import src.main.player.CooperativePlayer;
-import src.main.player.CopyCatPlayer;
+import src.main.player.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,22 +44,105 @@ class TrustTransactorTest {
     }
 
     @Test
-    void testCopyCatPlayerBehavior() {
+    void testCopyCatPlayerWithCheatPlayer() {
         TrustTransactor trustGame = new TrustTransactor(new TrustEvaluator());
         CopyCatPlayer copyCatPlayer = new CopyCatPlayer("CopyCatPlayer");
-        CooperativePlayer cooperatePlayer = new CooperativePlayer("Player");
-
+        CheatPlayer cheatPlayer = new CheatPlayer("CheatPlayer");
 
         assertEquals(Decision.CHEAT, copyCatPlayer.makeMove());
 
-        trustGame.playMultipleRounds(cooperatePlayer, copyCatPlayer, 5);
+        int result = trustGame.playMultipleRounds(copyCatPlayer, cheatPlayer, 4);
 
-        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
-        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
-        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
-        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
+        assertEquals(Decision.CHEAT, copyCatPlayer.makeMove());
+        assertEquals(Decision.CHEAT, copyCatPlayer.makeMove());
+        assertEquals(Decision.CHEAT, copyCatPlayer.makeMove());
+        assertEquals(Decision.CHEAT, copyCatPlayer.makeMove());
+
+        assertEquals(0, result);
     }
 
+    @Test
+    void testCopyCatPlayerWithCooperativePlayer() {
+        TrustTransactor trustGame = new TrustTransactor(new TrustEvaluator());
+        CopyCatPlayer copyCatPlayer = new CopyCatPlayer("CopyCatPlayer");
+        CooperativePlayer cooperativePlayer = new CooperativePlayer("CooperativePlayer");
 
+        assertEquals(Decision.CHEAT, copyCatPlayer.makeMove());
+
+        int result = trustGame.playMultipleRounds(copyCatPlayer, cooperativePlayer, 4);
+
+        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
+        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
+        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
+        assertEquals(Decision.COOPERATE, copyCatPlayer.makeMove());
+
+        assertEquals(8, result);
+    }
+
+    @Test
+    void testCopyKittenPlayerWithCheatPlayer() {
+        TrustTransactor trustGame = new TrustTransactor(new TrustEvaluator());
+        CopyKittenPlayer copyKittenPlayer = new CopyKittenPlayer("CopyKittenPlayer");
+        CheatPlayer cheatPlayer = new CheatPlayer("Cheat Player");
+
+        assertEquals(Decision.COOPERATE, copyKittenPlayer.makeMove());
+
+        trustGame.playMultipleRounds(copyKittenPlayer, cheatPlayer, 4);
+
+        assertEquals(Decision.CHEAT, copyKittenPlayer.makeMove());
+        assertEquals(Decision.CHEAT, copyKittenPlayer.makeMove());
+        assertEquals(Decision.CHEAT, copyKittenPlayer.makeMove());
+        assertEquals(Decision.CHEAT, copyKittenPlayer.makeMove());
+    }
+    @Test
+    void testCopyKittenPlayerWithCooperativePlayer() {
+        TrustTransactor trustGame = new TrustTransactor(new TrustEvaluator());
+        CopyKittenPlayer copyKittenPlayer = new CopyKittenPlayer("CopyKittenPlayer");
+        CooperativePlayer cooperativePlayer = new CooperativePlayer("CooperativePlayer");
+
+        assertEquals(Decision.COOPERATE, copyKittenPlayer.makeMove());
+
+        int result = trustGame.playMultipleRounds(copyKittenPlayer, cooperativePlayer, 4);
+
+        assertEquals(Decision.COOPERATE, copyKittenPlayer.makeMove());
+        assertEquals(Decision.COOPERATE, copyKittenPlayer.makeMove());
+        assertEquals(Decision.COOPERATE, copyKittenPlayer.makeMove());
+        assertEquals(Decision.COOPERATE, copyKittenPlayer.makeMove());
+
+        assertEquals(8, result);
+    }
+
+    @Test
+    void testGrudgePlayerWithCheatPlayer() {
+        TrustTransactor trustGame = new TrustTransactor(new TrustEvaluator());
+        GrudgePlayer grudgePlayer = new GrudgePlayer("GrudgePlayer");
+        CheatPlayer cheatPlayer = new CheatPlayer("Cheat Player");
+
+        assertEquals(Decision.COOPERATE, grudgePlayer.makeMove());
+
+        trustGame.playMultipleRounds(cheatPlayer, grudgePlayer, 4);
+
+        assertEquals(Decision.CHEAT, grudgePlayer.makeMove());
+        assertEquals(Decision.CHEAT, grudgePlayer.makeMove());
+        assertEquals(Decision.CHEAT, grudgePlayer.makeMove());
+        assertEquals(Decision.CHEAT, grudgePlayer.makeMove());
+    }
+    @Test
+    void testGrudgePlayerWithCooperativePlayer() {
+        TrustTransactor trustGame = new TrustTransactor(new TrustEvaluator());
+        GrudgePlayer grudgePlayer = new GrudgePlayer("GrudgePlayer");
+        CooperativePlayer cooperativePlayer = new CooperativePlayer("CooperativePlayer");
+
+        assertEquals(Decision.COOPERATE, grudgePlayer.makeMove());
+
+        int result = trustGame.playMultipleRounds(grudgePlayer, cooperativePlayer, 5);
+
+        assertEquals(Decision.COOPERATE, grudgePlayer.makeMove());
+        assertEquals(Decision.COOPERATE, grudgePlayer.makeMove());
+        assertEquals(Decision.COOPERATE, grudgePlayer.makeMove());
+        assertEquals(Decision.COOPERATE, grudgePlayer.makeMove());
+
+        assertEquals(10, result);
+    }
 
 }

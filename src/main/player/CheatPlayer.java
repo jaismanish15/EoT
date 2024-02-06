@@ -2,7 +2,7 @@ package src.main.player;
 
 import src.main.Decision;
 
-public class CheatPlayer extends Player{
+public class CheatPlayer extends Player {
     public CheatPlayer(String name) {
         super(name, Decision.CHEAT);
     }
@@ -12,3 +12,4 @@ public class CheatPlayer extends Player{
 
     }
 }
+
