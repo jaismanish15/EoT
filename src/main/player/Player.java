@@ -11,7 +11,6 @@ public abstract class Player {
         this.move = move;
     }
 
-
     public abstract void updateOpponentMove(Decision opponentMove);
 
     public Decision makeMove() {

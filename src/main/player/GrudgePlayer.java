@@ -2,8 +2,6 @@ package src.main.player;
 
 import src.main.Decision;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class GrudgePlayer extends Player {
     private boolean hasBeenCheated;
