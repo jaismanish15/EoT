@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CopyCatPlayer extends Player {
-    private final List<Decision> opponentMoves;
+    private Decision opponentMove;
 
     public CopyCatPlayer(String name) {
         super(name, Decision.CHEAT);
-        this.opponentMoves = new ArrayList<>();
+        this.opponentMove = null;
     }
 
     @Override
     public void updateOpponentMove(Decision opponentMove) {
-        opponentMoves.add(opponentMove);
+        this.opponentMove = opponentMove;
     }
 
     @Override
     public Decision makeMove() {
-        if (!opponentMoves.isEmpty()) {
-            return opponentMoves.getLast();
+        if (opponentMove!=null) {
+            return opponentMove;
         }
         return super.makeMove();
     }

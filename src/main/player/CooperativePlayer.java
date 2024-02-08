@@ -7,6 +7,7 @@ public class CooperativePlayer extends Player{
         super(name, Decision.COOPERATE);
     }
 
+
     @Override
     public void updateOpponentMove(Decision opponentMove) {
 

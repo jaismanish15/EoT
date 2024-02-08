@@ -4,17 +4,18 @@ import org.junit.jupiter.api.Test;
 import src.main.*;
 import src.main.player.CheatPlayer;
 import src.main.player.CooperativePlayer;
+import src.main.player.Detective;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrustEvaluatorTest {
+class TrustExchangeTest {
 
     @Test
     void testGameWithTwoCooperatingPlayers() {
         CooperativePlayer player1 = new CooperativePlayer("Player 1");
         CooperativePlayer player2 = new CooperativePlayer("Player 2");
-        TrustEvaluator round = new TrustEvaluator();
-        assertEquals(2, round.play(player1, player2));
+        TrustExchange round = new TrustExchange(player1,player2);
+        assertEquals(2, round.play());
     }
 
     @Test
@@ -22,8 +23,8 @@ class TrustEvaluatorTest {
         CheatPlayer player1 = new CheatPlayer("Player 1");
         CheatPlayer player2 = new CheatPlayer("Player 2");
 
-        TrustEvaluator game = new TrustEvaluator();
-        assertEquals(0, game.play(player1, player2));
+        TrustExchange game = new TrustExchange(player1,player2);
+        assertEquals(0, game.play());
     }
 
     @Test
@@ -31,8 +32,8 @@ class TrustEvaluatorTest {
         CooperativePlayer player1 = new CooperativePlayer("Player 1");
         CheatPlayer player2 = new CheatPlayer("Player 2");
 
-        TrustEvaluator game = new TrustEvaluator();
-        assertEquals(-1, game.play(player1, player2));
+        TrustExchange game = new TrustExchange(player1, player2);
+        assertEquals(-1, game.play());
     }
 
     @Test
@@ -40,8 +41,8 @@ class TrustEvaluatorTest {
         CheatPlayer player1 = new CheatPlayer("Player 1");
         CooperativePlayer player2 = new CooperativePlayer("Player 2");
 
-        TrustEvaluator game = new TrustEvaluator();
-        assertEquals(3, game.play(player1, player2));
+        TrustExchange game = new TrustExchange(player1, player2);
+        assertEquals(3, game.play());
     }
 
     @Test
@@ -49,9 +50,10 @@ class TrustEvaluatorTest {
         CheatPlayer player1 = new CheatPlayer("Player 1");
         CooperativePlayer player2 = new CooperativePlayer("Player 2");
 
-        TrustEvaluator game = new TrustEvaluator();
-        assertEquals(3, game.play(player1, player2));
+        TrustExchange game = new TrustExchange(player1, player2);
+        assertEquals(3, game.play());
     }
+
 
 
 }
